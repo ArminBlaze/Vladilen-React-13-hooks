@@ -3,14 +3,14 @@ import {AlertContext} from './AlertContext'
 import AlertReducer from './AlertReducer';
 import {SHOW_ALERT, HIDE_ALERT} from '../constants'
 
- 
+
 const AlertState = ({children}) => {
   const [state, dispatch] = useReducer(AlertReducer, null);
 
-  const showAlert = (text) => {
+  const showAlert = (text, type = 'secondary') => {
     dispatch({
       type: SHOW_ALERT,
-      value: {text}
+      value: {text, type}
     })
   }
 

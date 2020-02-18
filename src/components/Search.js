@@ -5,7 +5,14 @@ const Search = () => {
   const {showAlert} = useContext(AlertContext);
 
   const handleInput = (e) => {
-    if(e.target.value.length === 0) showAlert('Вы ничего не ввели')
+    
+    if(e.key !== 'Enter') {
+      console.log(e.key);
+      return;
+    }
+    e.preventDefault();
+
+    if(e.target.value.length === 0) showAlert('Вы ничего не ввели', 'danger')
   }
 
   return (
@@ -14,7 +21,7 @@ const Search = () => {
         type="text"
         className='form-control'
         placeholder='Введите ник пользователя...'
-        onClick={handleInput}
+        onKeyPress={handleInput}
       />
     </form>
   );
