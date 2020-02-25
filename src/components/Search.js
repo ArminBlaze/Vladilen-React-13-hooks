@@ -1,16 +1,21 @@
 import React, {useContext, useState} from 'react';
 import { AlertContext } from 'context/alert/AlertContext';
+import { githubContext } from 'context/github/githubContext';
 
 const Search = () => {
   const {showAlert} = useContext(AlertContext);
+  const {searchUsers} = useContext(githubContext);
   const [value, setValue] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(value.length === 0) showAlert('Вы ничего не ввели', 'danger')
+    if(value.length === 0) {
+      showAlert('Вы ничего не ввели', 'danger')
+      return;
+    }
     
     console.log(value);
-    
+    searchUsers(value)
   }
   
   const handleChange = (e) => {
