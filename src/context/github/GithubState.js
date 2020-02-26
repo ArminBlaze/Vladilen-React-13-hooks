@@ -50,7 +50,7 @@ const GithubState = ({children}) => {
     })
   }
 
-  const getRepos = (name) => {
+  const getRepos = async (name) => {
     setLoading();
     //zapros
     const response = await fetch(`https://api.github.com/users/${name}/repos?per_page=5`)
