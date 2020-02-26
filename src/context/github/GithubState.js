@@ -53,7 +53,7 @@ const GithubState = ({children}) => {
   const getRepos = (name) => {
     setLoading();
     //zapros
-    const response = await fetch(`https://api.github.com/users/${name}/repos`)
+    const response = await fetch(`https://api.github.com/users/${name}/repos?per_page=5`)
 
     const data = await response.json();
 
