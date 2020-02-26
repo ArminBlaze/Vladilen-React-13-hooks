@@ -35,23 +35,33 @@ const GithubState = ({children}) => {
     })
   }
 
-  const getUser = (name) => {
+  const getUser = async (name) => {
     setLoading();
     //zapros
+    const response = await fetch(`https://api.github.com/users/${name}`)
+
+    const data = await response.json();
+
+    console.log(data);
 
     dispatch({
       type: GET_USER,
-      // value: data
+      value: data
     })
   }
 
   const getRepos = (name) => {
     setLoading();
     //zapros
+    const response = await fetch(`https://api.github.com/users/${name}/repos`)
+
+    const data = await response.json();
+
+    console.log(data);
 
     dispatch({
       type: GET_REPOS,
-      // value: data
+      value: data
     })
   }
 
