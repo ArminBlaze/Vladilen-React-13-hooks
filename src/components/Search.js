@@ -3,18 +3,22 @@ import { AlertContext } from 'context/alert/AlertContext';
 import { githubContext } from 'context/github/githubContext';
 
 const Search = () => {
-  const {showAlert} = useContext(AlertContext);
-  const {searchUsers} = useContext(githubContext);
+  const {showAlert, hideAlert} = useContext(AlertContext);
+  const {searchUsers, clearUsers} = useContext(githubContext);
   const [value, setValue] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    clearUsers();
+
     if(value.length === 0) {
       showAlert('Вы ничего не ввели', 'danger')
       return;
     }
     
     console.log(value);
+    hideAlert();
     searchUsers(value)
   }
   
