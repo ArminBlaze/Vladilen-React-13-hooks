@@ -4,10 +4,10 @@ import { useReducer } from 'react';
 import githubReducer from 'context/github/githubReducer';
 import { SET_LOADING, SEARCH_USERS, GET_USER, GET_REPOS, CLEAR_USERS } from 'context/constants';
 
-// const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-// const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
-// const baseUrl = 
+const credentials = `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`; 
  
 const GithubState = ({children}) => {
   const initialState = 	{
@@ -23,7 +23,7 @@ const GithubState = ({children}) => {
   const searchUsers = async (value) => {
     setLoading();
     
-    const response = await fetch(`https://api.github.com/search/users?q=${value}`)
+    const response = await fetch(`https://api.github.com/search/users?q=${value}&` + credentials)
 
     const data = await response.json();
 
@@ -38,7 +38,7 @@ const GithubState = ({children}) => {
   const getUser = async (name) => {
     setLoading();
     //zapros
-    const response = await fetch(`https://api.github.com/users/${name}`)
+    const response = await fetch(`https://api.github.com/users/${name}?` + credentials)
 
     const data = await response.json();
 
@@ -53,7 +53,7 @@ const GithubState = ({children}) => {
   const getRepos = async (name) => {
     setLoading();
     //zapros
-    const response = await fetch(`https://api.github.com/users/${name}/repos?per_page=5`)
+    const response = await fetch(`https://api.github.com/users/${name}/repos?per_page=5&` + credentials)
 
     const data = await response.json();
 
