@@ -6,6 +6,8 @@ import { SET_LOADING, SEARCH_USERS, GET_USER, GET_REPOS, CLEAR_USERS } from 'con
 
 // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+
+// const baseUrl = 
  
 const GithubState = ({children}) => {
   const initialState = 	{
@@ -29,7 +31,7 @@ const GithubState = ({children}) => {
     
     dispatch({
       type: SEARCH_USERS,
-      value: data
+      value: data.items
     })
   }
 
