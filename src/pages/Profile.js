@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { githubContext } from 'context/github/githubContext';
 import { useEffect } from 'react';
+import Repos from 'pages/Repos';
 
  
 const Profile = ({match}) => {
@@ -10,7 +11,6 @@ const Profile = ({match}) => {
 
   
   useEffect(() => {
-    debugger;
     getUser(username);
     getRepos(username);
 
@@ -27,7 +27,7 @@ const Profile = ({match}) => {
         <div className='card-body'>
           <div className='row'>
             <div className='col-sm-3 text-center'>
-              <img src={avatar_url} alt={name} style={{width: '150px', 'max-width': '100%'}}/>
+              <img src={avatar_url} alt={name} style={{width: '150px', 'maxWidth': '100%'}}/>
               <h1>{name}</h1>
               { location && <p>Местоположение: {location}</p> }
             </div>
@@ -52,6 +52,8 @@ const Profile = ({match}) => {
           </div>
         </div>
       </div>
+
+      <Repos repos={repos}/>
     </div>
   );
 }
