@@ -2,23 +2,19 @@ import React from 'react';
 import { useContext } from 'react';
 import { githubContext } from 'context/github/githubContext';
 import { useEffect } from 'react';
-import { useCallback } from 'react';
 
  
 const Profile = ({match}) => {
   const username = match.params.name;
   const {getUser, getRepos, loading, user, repos} = useContext(githubContext);
 
-  const fetchData = useCallback(() => {
+  
+  useEffect(() => {
+    debugger;
     getUser(username);
     getRepos(username);
-  }, [username]);
 
-  useEffect(() => {
-    console.log(getUser);
-    debugger;
-    fetchData();
-  }, [username, fetchData])
+  }, [username, getUser, getRepos])
 
   if(loading) return <p>Данные пользователя загружаются...</p>
 
@@ -35,8 +31,13 @@ const Profile = ({match}) => {
               <h1>{name}</h1>
               { location && <p>Местоположение: {location}</p> }
             </div>
-
-
+            <div className='col'>
+              { bio && <>
+                <h3>Биография</h3>
+                <p>{bio}</p>
+              </>}
+              <a href={html_url} target='_blank' rel='noopener noreferrer' className='btn btn-dark'>Открыть профиль</a>
+            </div>
           </div>
         </div>
       </div>

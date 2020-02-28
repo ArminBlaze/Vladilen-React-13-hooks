@@ -3,6 +3,7 @@ import { githubContext } from 'context/github/githubContext';
 import { useReducer } from 'react';
 import githubReducer from 'context/github/githubReducer';
 import { SET_LOADING, SEARCH_USERS, GET_USER, GET_REPOS, CLEAR_USERS } from 'context/constants';
+import { useCallback } from 'react';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
@@ -20,7 +21,11 @@ const GithubState = ({children}) => {
   
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-  const searchUsers = async (value) => {
+  const setLoading = useCallback( () => {
+    dispatch({type: SET_LOADING})
+  }, [])
+
+  const searchUsers = useCallback( async (value) => {
     setLoading();
     
     const response = await fetch(`https://api.github.com/search/users?q=${value}&` + credentials)
@@ -33,9 +38,9 @@ const GithubState = ({children}) => {
       type: SEARCH_USERS,
       value: data.items
     })
-  }
+  }, [setLoading])
 
-  const getUser = async (name) => {
+  const getUser = useCallback( async (name) => {
     setLoading();
     //zapros
     const response = await fetch(`https://api.github.com/users/${name}?` + credentials)
@@ -48,9 +53,9 @@ const GithubState = ({children}) => {
       type: GET_USER,
       value: data
     })
-  }
+  }, [setLoading])
 
-  const getRepos = async (name) => {
+  const getRepos = useCallback(async (name) => {
     setLoading();
     //zapros
     const response = await fetch(`https://api.github.com/users/${name}/repos?per_page=5&` + credentials)
@@ -63,17 +68,16 @@ const GithubState = ({children}) => {
       type: GET_REPOS,
       value: data
     })
-  }
+  }, [setLoading])
 
-  const clearUsers = () => {
+
+  const clearUsers = useCallback( () => {
     dispatch({
       type: CLEAR_USERS
     })
-  }
+  }, []);
 
-  const setLoading = () => {
-    dispatch({type: SET_LOADING})
-  }
+  
 
   return (
     <githubContext.Provider value={{
@@ -88,6 +92,8 @@ const GithubState = ({children}) => {
       setLoading
     }}>
       {children}
+      {console.log('GithubState render')
+      }
     </githubContext.Provider>
   );
 }
