@@ -27,7 +27,7 @@ const Profile = ({match}) => {
         <div className='card-body'>
           <div className='row'>
             <div className='col-sm-3 text-center'>
-              <img src={avatar_url} alt={name} style={{width: '150px'}}/>
+              <img src={avatar_url} alt={name} style={{width: '150px', 'max-width': '100%'}}/>
               <h1>{name}</h1>
               { location && <p>Местоположение: {location}</p> }
             </div>
@@ -37,6 +37,17 @@ const Profile = ({match}) => {
                 <p>{bio}</p>
               </>}
               <a href={html_url} target='_blank' rel='noopener noreferrer' className='btn btn-dark'>Открыть профиль</a>
+
+              <ul>
+                {login && <li><b>Логин: </b> {login}</li> }
+                {company && <li><b>Компания: </b> {company}</li> }
+                {blog && <li><b>Сайт: </b> {blog}</li> }
+              </ul>
+
+              <div className='badge badge-primary mr-2 p-2'>Подписчики: {followers}</div>
+              <div className='badge badge-success mr-2 p-2'>Подписан на: {following}</div>
+              <div className='badge badge-info mr-2 p-2'>Репозитории: {public_repos}</div>
+              <div className='badge badge-dark mr-2 p-2'>Gists: {public_gists}</div>
             </div>
           </div>
         </div>
