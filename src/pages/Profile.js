@@ -8,7 +8,6 @@ import Repos from 'pages/Repos';
 const Profile = ({match}) => {
   const username = match.params.name;
   const {getUser, getRepos, loading, user, repos} = useContext(githubContext);
-
   
   useEffect(() => {
     getUser(username);
